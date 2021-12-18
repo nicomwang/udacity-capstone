@@ -107,15 +107,22 @@ workflows:
             - lint
       - create-eks-cluster:
           cluster-name: capstone-cluster
+          filters:
+            branches:
+              only:
+                - main 
       - create-k8s-deployment:
           cluster-name: capstone-cluster
           requires:
             - create-eks-cluster
+          filters:
+            branches:
+              only:
+                - main 
       - aws-eks/update-container-image:
           cluster-name: capstone-cluster
           resource-name: 'deployment/capstone-cluster'
           # Specify a list of container image updates to be applied to the resource via `kubectl set image`
-          container-image-updates: 'capstone=${DOCKER_PATH}:${DOCKER_TAG}'
+          container-image-updates: 'capstone=nicomwang/udacity-capstone:${DOCKER_TAG}'
           requires:
             - build-and-push-image
-            - create-k8s-deployment
