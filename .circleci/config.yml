@@ -98,6 +98,20 @@ jobs:
           resource-file-path: deployment.yml
           resource-name: deployment/capstone-cluster
 
+  update-container-image:
+    executor: aws-eks/python3
+    steps:
+      - checkout
+      - aws-eks/update-container-image:
+          cluster-name: capstone-cluster
+          resource-name: 'deployment/capstone-cluster'
+          # Specify a list of container image updates to be applied to the resource via `kubectl set image`
+          container-image-updates: 'capstone=nicomwang/udacity-capstone:${DOCKER_TAG}'
+      - run:
+          name: Check
+          command: |
+            kubectl get services
+            kubectl get pods
 workflows:
   default:
     jobs:
@@ -111,11 +125,7 @@ workflows:
           cluster-name: capstone-cluster
           requires:
             - create-eks-cluster
-      - aws-eks/update-container-image:
-          cluster-name: capstone-cluster
-          resource-name: 'deployment/capstone-cluster'
-          # Specify a list of container image updates to be applied to the resource via `kubectl set image`
-          container-image-updates: 'capstone=${DOCKER_PATH}:${DOCKER_TAG}'
+      - update-container-image:
           requires:
             - build-and-push-image
             - create-k8s-deployment
