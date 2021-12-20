@@ -16,7 +16,7 @@ In this project you will apply the skills and knowledge which were developed thr
 
 * Run `make install` to install the necessary dependencies
 
-### CircleCI environment variables
+#### CircleCI environment variables
 - AWS_ACCESS_KEY_ID
 - AWS_DEFAULT_REGION
 - AWS_SECRET_ACCESS_KEY
@@ -25,14 +25,13 @@ In this project you will apply the skills and knowledge which were developed thr
 - DOCKERPATH
 - DOCKER_TAG
 
-### Running `server.js`
+#### Running the app `server.js`
 
 1. Standalone:  `node server.js`
 2. Run in Docker:  `docker run -p 8080:8080 capstone`
 
-### Test the web app on EKS
+#### Test the web app on EKS
 * via ELB or EC2 public ip
----
 
 ## File Sctructure
     .
@@ -42,7 +41,16 @@ In this project you will apply the skills and knowledge which were developed thr
     ├── Makefile                 # Privide instructions on environment setup and lint tests
     ├── deployment.yml           # configuration file to manage a set of identical pods on Kubernetes
     ├── package-lock.json        # An auto-generated list of each dependency listed in package.json
-    ├── package.json             # A file  various metadata related to the project 
+    ├── package.json             # A file contains various metadata related to the project 
     ├── server.js                # Sample node-express app
     └── README.md
-    
+ 
+## Resources
+* [Docker Commands](https://docs.docker.com/engine/reference/commandline/build/)
+* [CircleCI aws-eks-orb](https://circleci.com/developer/orbs/orb/circleci/aws-eks)
+* [AWS EKS: Deploy a sample application](https://docs.aws.amazon.com/eks/latest/userguide/sample-deployment.html)
+* [Kubernetes: Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+
+
+## License
+Distributed under the MIT License. See `LICENSE.txt` for more information.
